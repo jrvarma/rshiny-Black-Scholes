@@ -30,7 +30,9 @@ fluidPage(
                                             "Gamma" = "Gamma",
                                             "Rho" = "Rho",
                                             "Theta" = "Theta",
-                                            "Vega" = "Vega"))
+                                            "Vega" = "Vega",
+					    "Vanna" = "Vanna",
+					    "Volga" = "Volga"))
                              ),
             br()
         ),
