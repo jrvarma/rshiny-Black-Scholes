@@ -93,3 +93,4 @@ GenBSImplied <- function(s, X, r, price, t, div_yield, PutOpt=FALSE,
   }
   return (res2$root)
 }
+
