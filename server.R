@@ -64,7 +64,7 @@ function(input, output, session) {
         ggplot(dfC, aes(spots())) +
             geom_line(aes(y = valueC, color = "Call Value")) +
             geom_line(aes(y = payoffC, color = "Call Payoff")) +
-            xlab(expression(paste("Underlying Price (", S[0], ")"))) +
+            xlab(expression(paste("Underlying Price (", S, ")"))) +
             ylab("Call Option Payoff and Value") +
             theme_bw() + theme(legend.title = element_blank(), text = element_text(size=15))
         })
@@ -76,7 +76,7 @@ function(input, output, session) {
         ggplot(dfP, aes(spots())) +
             geom_line(aes(y = valueP, color = "Put Value")) +
             geom_line(aes(y = payoffP, color = "Put Payoff")) +
-            xlab(expression(paste("Underlying Price (", S[0], ")"))) +
+            xlab(expression(paste("Underlying Price (", S, ")"))) +
             ylab("Put Option Payoff and Value") +
             theme_bw() + theme(legend.title = element_blank(), text = element_text(size=15))
         })
@@ -109,9 +109,10 @@ function(input, output, session) {
         ggplot(dfG, aes(spots())) +
             geom_line(aes(y = callData(), color = paste("Call", greek))) +
             geom_line(aes(y = putData(), color = paste("Put", greek))) +
-            xlab(expression(paste("Underlying Price (", S[0], ")"))) +
+            xlab(expression(paste("Underlying Price (", S, ")"))) +
             ylab(paste("Call and Put ", greek)) +
             theme_bw() + theme(legend.title = element_blank(), text = element_text(size=15))
   })
    
 }
+
