@@ -15,7 +15,7 @@ fluidPage(
                              'Monthly' = 12,
                              'Continuous' = Inf)),            
 #            numericInput('VorP', 'Volatility of Underlying (%)', 20),
-            numericInput('t', 'Maturity of Option', 1),
+            ## numericInput('t', 'Maturity of Option', 1),
             sliderInput("sigma", "Volatility (%)", value = 20,
                         min = 2, max = 60),
             sliderInput("t", "Time to Maturity (Years)", value = 1,
@@ -24,28 +24,31 @@ fluidPage(
                          list('Find Option Price' = FALSE,
                               'Find Implied Volatility' = TRUE),
                          selected = FALSE, inline = TRUE),
-            br(),
-            radioButtons("greek", "Select Greek to Plot",
-                   c("Delta" = "Delta",
-                     "Gamma" = "Gamma",
-                     "Rho" = "Rho",
-                     "Theta" = "Theta",
-                     "Vega" = "Vega"))
+            conditionalPanel(condition = "input.conditionedPanels == 2",
+                             radioButtons("greek", "Select Greek to Plot",
+                                          c("Delta" = "Delta",
+                                            "Gamma" = "Gamma",
+                                            "Rho" = "Rho",
+                                            "Theta" = "Theta",
+                                            "Vega" = "Vega"))
+                             ),
+            br()
         ),
         
         mainPanel(
             tabsetPanel(type = "tabs",
-                        tabPanel("Black Scholes Values",
+                        tabPanel("Black Scholes Values", value = 1,
                                  h3('Option Values for selected Inputs'), tableOutput("gbsout"), hr(),
                                  h3('Plot of Call and Put Options'),
                                  plotOutput("callPlot"), br(), 
                                  plotOutput("putPlot")),
-                        tabPanel("Black Scholes Greeks",
+                        tabPanel("Black Scholes Greeks", value = 2,
                                  h3('Option Greeks for selected Inputs'), tableOutput("greekout"), hr(),
                                  h3('Plot of selected Greek'), 
                                  plotOutput("plot"), br(),  
                                  h5("Note: Gamma and Vega are same for both Call and Put options (because of Put-Call parity)")
-                                 )
+                                 ),
+                        id = "conditionedPanels"
                         )
         )
     ),
