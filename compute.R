@@ -42,13 +42,15 @@ GenBS <- function(s, X, r, Sigma, t, div_yield = 0){
   ## if t is 0, the above is 0/0 = NaN but dnorm(d1) term goes to 0 faster
   ## so we set the result to 0 in this case
   Gamma <- ifelse(is.nan(Gamma), 0,  Gamma)
-  Vega <- s * sqrt(t) * dnorm(d1) * exp(-div_yield*t)
+  Vega <- s * sqrt(t) * dnorm(d1) * exp(-div_yield*t) / s
+  Vanna <- Vega * d2 / (s * Sigma * sqrt(t))
+  Volga <- Vega * d1 * d2 / (Sigma)
   callRho <- X * t * exp(-r * t) * Nd2
   putRho <- -X * t * exp(-r * t) * Nminusd2
   callProb <- Nd2
   putProb <- Nminusd2
   Greeks <- list(callDelta=callDelta, putDelta=putDelta, callTheta=callTheta,
-                 putTheta=putTheta, Gamma=Gamma, Vega=Vega, callRho=callRho, putRho=putRho)
+                 putTheta=putTheta, Gamma=Gamma, Vega=Vega, callRho=callRho, putRho=putRho, Vanna=Vanna, Volga=Volga)
   extra <- list(d1=d1, d2=d2, Nd1=Nd1, Nd2=Nd2, Nminusd1=Nminusd1,
                 Nminusd2=Nminusd2, callProb=callProb, putProb=putProb)
   list(call=call, put=put, Greeks=Greeks, extra=extra)
@@ -93,4 +95,3 @@ GenBSImplied <- function(s, X, r, price, t, div_yield, PutOpt=FALSE,
   }
   return (res2$root)
 }
-
