@@ -44,13 +44,13 @@ function(input, output, session) {
           dfG <- data.frame(Call = c(res$Greeks$callDelta,
                                res$Greeks$callTheta,
                                res$Greeks$Gamma, res$Greeks$Vega,
-                               res$Greeks$callRho),
+                               res$Greeks$callRho, res$Greeks$Vanna, res$Greeks$Volga),
                            Put = c(res$Greeks$putDelta,
                                res$Greeks$putTheta,
                                res$Greeks$Gamma, res$Greeks$Vega,
-                               res$Greeks$putRho),
+                               res$Greeks$putRho, res$Greeks$Vanna, res$Greeks$Volga),
                            row.names = c('Delta', 'Theta',
-                               'Gamma', 'Vega', 'Rho'))
+                               'Gamma', 'Vega', 'Rho', 'Vanna', 'Volga'))
      t(dfG)
   }, rownames = TRUE)
     
@@ -88,6 +88,8 @@ function(input, output, session) {
                Rho = results()$Greeks$callRho,                        
                Theta = results()$Greeks$callTheta,
                Vega = results()$Greeks$Vega,
+               Vanna = results()$Greeks$Vanna,
+               Volga = results()$Greeks$Volga,
                results()$Greeks$callDelta
                )
     })
@@ -99,6 +101,8 @@ function(input, output, session) {
                Rho = results()$Greeks$putRho,                        
                Theta = results()$Greeks$putTheta,
                Vega = results()$Greeks$Vega,
+               Vanna = results()$Greeks$Vanna,
+               Volga = results()$Greeks$Volga,
                results()$Greeks$putDelta
                )
     })
